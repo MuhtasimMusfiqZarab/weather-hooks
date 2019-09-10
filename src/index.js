@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
 import Spinner from "./Spinner";
+import useLocation from "./useLocation";
 
 const App = () => {
-  //need to initialize two pieces of state
-  const [lat, setLat] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-
-  //always takes an => func (instead of componentDidMount([]array indicates it runs only once )
-  useEffect(() => {
-    window.navigator.geolocation.getCurrentPosition(
-      position => setLat(position.coords.latitude),
-      err => setErrorMessage(err.message)
-    );
-  }, []);
-
+  //useLocation returns an array (thus need to destructure)
+  const [lat, errorMessage] = useLocation();
   // what content to be rendered to the screen-----------------
   let content;
   if (errorMessage) {
